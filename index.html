@@ -25,13 +25,14 @@
             padding: 8px 15px; border-radius: 8px; transition: 0.3s; cursor: pointer;
         }
         .nav-link.active { background: var(--secondary); color: white; }
+        .nav-link:hover:not(.active) { background: #f1f5f9; color: var(--secondary); }
 
         /* Sections Toggle */
         .page-section { display: none; padding-bottom: 60px; }
         .page-section.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Header dengan Padding Luas agar Teks tidak Tertutup */
+        /* Header dengan Padding Luas */
         header {
             background: linear-gradient(rgba(30, 58, 138, 0.85), rgba(30, 58, 138, 0.85)), url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80') center/cover;
             color: white; 
@@ -51,8 +52,9 @@
         .maskot-img { width: 110px; height: 110px; border-radius: 50%; border: 4px solid white; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .maskot-text { flex: 1; min-width: 280px; text-align: center; }
 
-        /* Card & Doc Styles */
-        .card { background: white; padding: 35px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 25px; border: 1px solid #eef2f6; }
+        /* Card Styles */
+        .card { background: white; padding: 35px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 25px; border: 1px solid #eef2f6; transition: 0.3s; }
+        .card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
         .card h3 { color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
         
         .doc-section { margin-bottom: 25px; }
@@ -124,45 +126,56 @@
 
 <div id="tata-tertib" class="page-section">
     <header style="background: linear-gradient(rgba(245, 158, 11, 0.9), rgba(245, 158, 11, 0.9)), url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80');">
-        <h1>Tata Tertib Lengkap</h1>
-        <p>Mari Kita Jaga Kenyamanan & Ketertiban Bersama</p>
+        <h1>Tata Tertib Perpustakaan</h1>
+        <p>SD Kristen 04 Eben Haezer</p>
     </header>
     <div class="container">
         <div class="card">
+            
             <div class="doc-section">
-                <span class="doc-title">A. Jam Layanan</span>
+                <span class="doc-title">A. Jam Layanan Perpustakaan</span>
                 <ul>
-                    <li>Senin – Jumat: 07.00 – 14.00 WIB.</li>
-                    <li>Layanan tetap buka selama jam istirahat siswa.</li>
-                    <li>Tutup pada hari libur nasional dan sekolah.</li>
+                    <li><strong>Senin – Jumat:</strong> 07.00 – 14.00 WIB.</li>
+                    <li><strong>Waktu Istirahat:</strong> Layanan perpustakaan tetap buka selama jam istirahat siswa.</li>
+                    <li><em>(Perpustakaan tutup pada hari libur nasional dan hari libur sekolah)</em></li>
                 </ul>
             </div>
+            
             <div class="doc-section">
-                <span class="doc-title">B. Ketentuan Pengunjung</span>
+                <span class="doc-title">B. Ketentuan Pengunjung (Siswa, Guru, dan Staf)</span>
                 <ul>
-                    <li>Wajib mengisi buku kunjungan atau sistem presensi digital.</li>
-                    <li>Sepatu wajib dilepas dan diletakkan rapi di rak luar.</li>
-                    <li>Dilarang berbicara keras, berlarian, atau bermain di dalam.</li>
-                    <li>Dilarang membawa makanan dan minuman.</li>
-                    <li>Buku yang selesai dibaca diletakkan di meja/keranjang khusus.</li>
+                    <li><strong>Mengisi Daftar Hadir:</strong> Setiap pengunjung wajib mengisi buku kunjungan atau sistem presensi digital perpustakaan saat baru memasuki ruangan.</li>
+                    <li><strong>Sepatu Dilepas:</strong> Saat duduk di karpet sepatu wajib dilepas dan ditaruh di rak sepatu yang ada di luar.</li>
+                    <li><strong>Menjaga Ketenangan:</strong> Pengunjung dilarang berbicara dengan suara keras, berlarian, atau bermain di dalam perpustakaan agar tidak mengganggu pengunjung lain.</li>
+                    <li><strong>Menjaga Kebersihan:</strong> Dilarang membawa makanan dan minuman ke dalam perpustakaan. Pengunjung wajib membuang sampah pada tempatnya.</li>
+                    <li><strong>Menjaga Fasilitas:</strong> Pengunjung dilarang mencoret-coret, melipat halaman, merobek, atau merusak buku serta perabotan perpustakaan.</li>
+                    <li><strong>Selesai Membaca:</strong> Buku yang telah selesai dibaca di tempat tidak perlu dikembalikan ke rak secara mandiri, melainkan diletakkan di meja/keranjang khusus yang telah disediakan untuk dirapikan oleh petugas.</li>
                 </ul>
             </div>
+            
             <div class="doc-section">
-                <span class="doc-title">C. Aturan Peminjaman</span>
+                <span class="doc-title">C. Aturan Peminjaman dan Pengembalian Buku</span>
                 <ul>
-                    <li>Wajib menunjukkan Kartu Anggota sendiri.</li>
-                    <li>Maksimal meminjam 2 eksemplar buku.</li>
-                    <li>Lama pinjam maksimal 7 hari (dapat diperpanjang 1x).</li>
-                    <li>Kamus & Ensiklopedia hanya boleh baca di tempat.</li>
+                    <li><strong>Syarat Peminjaman:</strong> Peminjam wajib terdaftar sebagai anggota perpustakaan dan menunjukkan Kartu Anggota Perpustakaan yang masih berlaku (tidak boleh meminjam menggunakan kartu orang lain).</li>
+                    <li><strong>Batas Peminjaman:</strong> Siswa maksimal meminjam 2 (dua) eksemplar buku dalam satu kali transaksi peminjaman.</li>
+                    <li><strong>Masa Pinjam:</strong> Lama peminjaman buku adalah 1 (satu) minggu atau <span class="highlight">7 hari</span>.</li>
+                    <li><strong>Perpanjangan:</strong> Buku dapat diperpanjang masa pinjamnya sebanyak 1 (satu) kali untuk 1 minggu berikutnya, dengan syarat buku tersebut harus dibawa ke perpustakaan untuk dicatat ulang oleh petugas.</li>
+                    <li><strong>Buku Referensi:</strong> Buku referensi (Kamus, Ensiklopedia, Atlas) dan majalah/koran edisi terbaru tidak untuk dipinjamkan pulang dan hanya boleh dibaca di dalam ruangan perpustakaan.</li>
+                    <li><strong>Pengembalian buku:</strong> Pengembalian buku dilakukan dengan menyerahkan buku ke petugas perpustakaan kemudian akan di scan/dicatat agar tercatat sudah mengembalikan buku.</li>
                 </ul>
             </div>
+            
             <div class="doc-section">
                 <span class="doc-title">D. Sanksi Pelanggaran</span>
+                <p style="margin-bottom: 10px; font-size: 0.95rem; color: var(--text);">Untuk mendidik siswa bertanggung jawab, perpustakaan memberlakukan sanksi sebagai berikut:</p>
                 <ul>
-                    <li>Keterlambatan: Teguran atau skorsing peminjaman.</li>
-                    <li>Rusak/Hilang: Wajib memperbaiki atau mengganti dengan buku/uang senilai.</li>
+                    <li><strong>Keterlambatan Pengembalian:</strong> Siswa yang terlambat mengembalikan buku akan dikenakan sanksi berupa teguran lisan, tidak diperkenankan meminjam buku selama jangka waktu tertentu (misal: 3 hari), atau sanksi edukatif (misal: merangkum isi buku).</li>
+                    <li><strong>Buku Rusak (Ringan):</strong> Jika buku rusak ringan (sampul terlepas, lecek), peminjam wajib memperbaiki buku tersebut sebelum dikembalikan.</li>
+                    <li><strong>Buku Rusak Berat / Hilang:</strong> Jika buku hilang atau rusak parah sehingga tidak bisa dibaca lagi, peminjam wajib mengganti dengan buku yang sama (atau buku lain yang sejenis atas persetujuan petugas) atau mengganti dengan uang seharga buku tersebut.</li>
+                    <li><strong>Pelanggaran Ketertiban:</strong> Siswa yang berulang kali membuat keributan di perpustakaan akan diminta keluar dari ruangan dan dilaporkan kepada Wali Kelas.</li>
                 </ul>
             </div>
+            
         </div>
     </div>
 </div>
