@@ -316,93 +316,118 @@
     <p style="font-size:0.8rem; opacity:0.6; margin-top:10px;">&copy; 2026 Mendukung Literasi Sekolah Bersama Ezo & Hera</p>
 </footer>
 
-<script>
-    // FUNGSI NAVIGASI
-    function showPage(pageId, element) {
+<script type="module">
+    // 1. Mengimpor Firebase dari internet
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    // =======================================================
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBciYhL2AYoa5_iWkEirQjPRpR29rWOyIE",
+  authDomain: "perpus-sdk04.firebaseapp.com",
+  projectId: "perpus-sdk04",
+  storageBucket: "perpus-sdk04.firebasestorage.app",
+  messagingSenderId: "850111293389",
+  appId: "1:850111293389:web:e8aeab3709dc9d5aba8684",
+  measurementId: "G-2291BT31SW"
+};
+    // =======================================================
+    const firebaseConfig = {
+        apiKey: "API_KEY_ANDA",
+        authDomain: "PROJECT_ID.firebaseapp.com",
+        projectId: "PROJECT_ID",
+        storageBucket: "PROJECT_ID.appspot.com",
+        messagingSenderId: "SENDER_ID",
+        appId: "APP_ID"
+    };
+
+    // 3. Mengaktifkan Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const MAX_HARI = 7;
+
+    // FUNGSI NAVIGASI & LOGIN
+    window.showPage = function(pageId, element) {
         document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         if(element) element.classList.add('active');
         window.scrollTo(0,0);
-    }
+    };
 
-    // FUNGSI LOGIN ADMIN
-    function aksesAdmin() {
+    window.aksesAdmin = function() {
         let password = prompt("Masukkan Password Admin (Petunjuk: admin123):");
         if (password === "admin123") {
             showPage('admin', document.getElementById('nav-admin'));
-            muatData();
         } else if (password !== null) {
             alert("Password Salah! Akses Ditolak.");
         }
-    }
+    };
 
-    // FUNGSI SISTEM DATA
-    const MAX_HARI = 7;
-
-    function tambahData(event) {
+    // FUNGSI MENAMBAH DATA KE FIREBASE
+    window.tambahData = async function(event) {
         event.preventDefault();
         const nama = document.getElementById('inputNama').value;
         const kelas = document.getElementById('inputKelas').value;
         const buku = document.getElementById('inputBuku').value;
         
-        // Simpan tanggal hari ini (jam dinolkan agar perhitungan akurat)
         const tglSekarang = new Date();
         tglSekarang.setHours(0,0,0,0);
 
-        const dataBaru = {
-            id: Date.now(),
-            nama: nama,
-            kelas: kelas,
-            buku: buku,
-            tglPinjam: tglSekarang.toISOString()
-        };
-
-        let dataPeminjam = JSON.parse(localStorage.getItem('dataPerpus')) || [];
-        dataPeminjam.push(dataBaru);
-        localStorage.setItem('dataPerpus', JSON.stringify(dataPeminjam));
-
-        document.getElementById('form-admin').reset();
-        alert("Data berhasil ditambahkan!");
-        muatData();
-    }
-
-    function hapusData(id) {
-        if(confirm("Apakah buku ini sudah dikembalikan? Data akan dihapus dari daftar.")) {
-            let dataPeminjam = JSON.parse(localStorage.getItem('dataPerpus')) || [];
-            dataPeminjam = dataPeminjam.filter(data => data.id !== id);
-            localStorage.setItem('dataPerpus', JSON.stringify(dataPeminjam));
-            muatData();
+        try {
+            // Mengirim data ke internet (Firebase)
+            await addDoc(collection(db, "peminjaman"), {
+                nama: nama,
+                kelas: kelas,
+                buku: buku,
+                tglPinjam: tglSekarang.toISOString()
+            });
+            document.getElementById('form-admin').reset();
+            alert("Berhasil! Data telah tersimpan di Server Internet.");
+        } catch (e) {
+            console.error("Error menambah dokumen: ", e);
+            alert("Gagal menyimpan data. Pastikan internet menyala.");
         }
-    }
+    };
 
-    function muatData() {
-        let dataPeminjam = JSON.parse(localStorage.getItem('dataPerpus')) || [];
+    // FUNGSI MENGHAPUS DATA DARI FIREBASE
+    window.hapusData = async function(id) {
+        if(confirm("Apakah buku ini sudah dikembalikan? Data akan dihapus dari sistem.")) {
+            try {
+                await deleteDoc(doc(db, "peminjaman", id));
+            } catch (e) {
+                console.error("Error menghapus dokumen: ", e);
+            }
+        }
+    };
+
+    // FUNGSI MEMBACA DATA DARI FIREBASE SECARA REAL-TIME (OTOMATIS MUNCUL)
+    onSnapshot(collection(db, "peminjaman"), (snapshot) => {
         const tbodyPublik = document.getElementById('tbody-publik');
         const tbodyAdmin = document.getElementById('tbody-admin');
-        
-        // Waktu saat ini (jam dinolkan untuk perhitungan selisih hari penuh)
         const hariIni = new Date();
         hariIni.setHours(0,0,0,0);
 
         tbodyPublik.innerHTML = '';
         tbodyAdmin.innerHTML = '';
 
-        if(dataPeminjam.length === 0) {
+        if(snapshot.empty) {
             tbodyPublik.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">Hebat! Saat ini tidak ada buku yang sedang dipinjam (semua sudah kembali).</td></tr>';
             tbodyAdmin.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">Daftar peminjaman kosong.</td></tr>';
             return;
         }
 
-        dataPeminjam.forEach(data => {
+        snapshot.forEach((docRef) => {
+            const data = docRef.data();
+            const id = docRef.id; // Ini adalah ID acak yang dibuat Firebase
             const tglPinjam = new Date(data.tglPinjam);
             const tglTampil = tglPinjam.toLocaleDateString('id-ID');
 
-            // Hitung selisih hari
             const selisihWaktu = hariIni.getTime() - tglPinjam.getTime();
             const selisihHari = Math.floor(selisihWaktu / (1000 * 3600 * 24)); 
             
-            // Logika Status Waktu
             let badgeHTML = "";
             
             if (selisihHari <= MAX_HARI) {
@@ -417,7 +442,6 @@
                 badgeHTML = `<span class="badge-terlambat">⚠️ Telat ${telatHari} Hari</span>`;
             }
 
-            // Tampilkan di Profil
             tbodyPublik.innerHTML += `
                 <tr>
                     <td data-label="Nama Siswa"><strong>${data.nama}</strong></td>
@@ -428,23 +452,17 @@
                 </tr>
             `;
 
-            // Tampilkan di Panel Admin
             tbodyAdmin.innerHTML += `
                 <tr>
                     <td data-label="Nama Siswa"><strong>${data.nama}</strong></td>
                     <td data-label="Kelas">${data.kelas}</td>
                     <td data-label="Buku">${data.buku}</td>
                     <td data-label="Tgl Pinjam">${tglTampil}</td>
-                    <td data-label="Aksi Petugas"><button class="btn-delete" onclick="hapusData(${data.id})">✔ Dikembalikan</button></td>
+                    <td data-label="Aksi Petugas"><button class="btn-delete" onclick="hapusData('${id}')">✔ Dikembalikan</button></td>
                 </tr>
             `;
         });
-    }
-
-    // Jalankan saat pertama kali website dibuka
-    window.onload = function() {
-        muatData();
-    };
+    });
 </script>
 
 </body>
