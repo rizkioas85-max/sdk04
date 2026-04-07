@@ -26,81 +26,46 @@
         }
         .nav-link.active { background: var(--secondary); color: white; }
         .nav-link:hover:not(.active) { background: #f1f5f9; color: var(--secondary); }
+        .btn-admin { background: #1e293b; color: white; }
+        .btn-admin:hover { background: #334155 !important; color: white !important; }
 
         /* Sections Toggle */
         .page-section { display: none; padding-bottom: 60px; }
         .page-section.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* HEADER STYLES (DESAIN BARU) */
-        .header-main {
-            color: white; 
-            padding: 110px 20px 110px; 
-            text-align: center;
-            position: relative;
-        }
-        .header-main h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        .header-main p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
-        }
+        /* HEADER STYLES */
+        .header-main { color: white; padding: 110px 20px 110px; text-align: center; position: relative; }
+        .header-main h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); font-weight: 700; letter-spacing: 1px; }
+        .header-main p { font-size: 1.1rem; opacity: 0.9; text-shadow: 1px 1px 5px rgba(0,0,0,0.3); }
 
-        /* Gradasi Khusus Masing-masing Halaman */
-        .bg-profil {
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(59, 130, 246, 0.7) 100%), url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80') center/cover;
-        }
-        .bg-tatatertib {
-            background: linear-gradient(135deg, rgba(234, 88, 12, 0.85) 0%, rgba(245, 158, 11, 0.75) 100%), url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80') center/cover;
-        }
-        .bg-keanggotaan {
-            background: linear-gradient(135deg, rgba(4, 120, 87, 0.85) 0%, rgba(16, 185, 129, 0.75) 100%), url('https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?auto=format&fit=crop&q=80') center/cover;
-        }
+        .bg-profil { background: linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(59, 130, 246, 0.7) 100%), url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80') center/cover; }
+        .bg-tatatertib { background: linear-gradient(135deg, rgba(234, 88, 12, 0.85) 0%, rgba(245, 158, 11, 0.75) 100%), url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80') center/cover; }
+        .bg-keanggotaan { background: linear-gradient(135deg, rgba(4, 120, 87, 0.85) 0%, rgba(16, 185, 129, 0.75) 100%), url('https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?auto=format&fit=crop&q=80') center/cover; }
+        .bg-admin { background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(71, 85, 105, 0.8) 100%), url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80') center/cover; }
 
         .container { max-width: 1000px; margin: auto; padding: 30px 20px; }
 
         /* Maskot Intro */
-        .maskot-intro { 
-            display: flex; align-items: center; gap: 25px; background: white; padding: 30px; 
-            border-radius: 30px; margin-top: -60px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-            flex-wrap: wrap; justify-content: center; position: relative; z-index: 5; border: 1px solid #eef2f6;
-        }
+        .maskot-intro { display: flex; align-items: center; gap: 25px; background: white; padding: 30px; border-radius: 30px; margin-top: -60px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); flex-wrap: wrap; justify-content: center; position: relative; z-index: 5; border: 1px solid #eef2f6; }
         .maskot-img { width: 110px; height: 110px; border-radius: 50%; border: 4px solid white; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .maskot-text { flex: 1; min-width: 280px; text-align: center; }
 
         /* Card Umum */
         .card { background: white; padding: 35px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 25px; border: 1px solid #eef2f6; transition: 0.3s; }
-        .card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
         .card h3 { color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
         
-        /* Grid Khusus Aturan/SOP */
+        /* Grid Rules */
         .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
-        .rule-card { 
-            background: white; padding: 30px; border-radius: 15px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eef2f6; 
-            border-top: 5px solid var(--secondary); transition: 0.3s; height: 100%;
-        }
-        .rule-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .rule-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eef2f6; border-top: 5px solid var(--secondary); transition: 0.3s; height: 100%; }
         .rule-card.border-green { border-top-color: var(--success); }
         .rule-card.border-orange { border-top-color: var(--accent); }
         .rule-card.border-red { border-top-color: var(--danger); }
-        
         .rule-card h4 { display: flex; align-items: center; gap: 10px; color: var(--primary); font-size: 1.1rem; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
-        .rule-icon { font-size: 1.5rem; }
-
+        
         ul { list-style: none; }
         li { margin-bottom: 10px; padding-left: 25px; position: relative; font-size: 0.95rem; }
-        li::before { content: "•"; position: absolute; left: 5px; color: var(--secondary); font-weight: bold; }
-        
-        /* Checkmark khusus untuk rules */
-        .rule-card li::before { content: "✓"; color: var(--secondary); font-size: 1.1rem; left: 0; }
+        .rule-card li::before { content: "✓"; position: absolute; left: 0; color: var(--secondary); font-weight: bold; font-size: 1.1rem;}
         .rule-card.border-green li::before { color: var(--success); }
         .rule-card.border-orange li::before { color: var(--accent); }
         .rule-card.border-red li::before { content: "⚠️"; font-size: 0.9rem; top: 3px; }
@@ -108,6 +73,19 @@
         .highlight { background: #fffbeb; padding: 2px 5px; border-radius: 4px; color: #b45309; font-weight: 600; }
         .doc-section { margin-bottom: 25px; }
         .doc-title { font-weight: 700; color: var(--primary); margin-bottom: 8px; display: block; font-size: 1.1rem; }
+
+        /* Tampilan Tabel Data */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background-color: var(--primary); color: white; }
+        .badge-sisa { background: var(--accent); color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; }
+
+        /* Form Admin */
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem;}
+        .form-control { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; }
+        .btn-submit { background: var(--success); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .btn-delete { background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
 
         footer { background: #1e293b; color: white; text-align: center; padding: 50px 20px; margin-top: 40px; }
 
@@ -117,6 +95,10 @@
             .header-main h1 { font-size: 1.8rem; }
             .header-main { padding: 90px 20px 90px; }
             .maskot-intro { margin-top: -45px; padding: 20px; }
+            table, thead, tbody, th, td, tr { display: block; }
+            th { display: none; }
+            td { position: relative; padding-left: 50%; border-bottom: 1px solid #eee; }
+            td::before { position: absolute; left: 10px; font-weight: bold; content: attr(data-label); }
         }
     </style>
 </head>
@@ -128,9 +110,10 @@
         <span class="logo-title">Pelangi Pustaka</span>
     </div>
     <div class="nav-menu">
-        <a class="nav-link active" onclick="showPage('profil', this)">Profil</a>
+        <a class="nav-link active" onclick="showPage('profil', this)" id="nav-profil">Profil</a>
         <a class="nav-link" onclick="showPage('tata-tertib', this)">Tata Tertib</a>
         <a class="nav-link" onclick="showPage('keanggotaan', this)">Keanggotaan</a>
+        <a class="nav-link btn-admin" onclick="aksesAdmin()" id="nav-admin">Admin</a>
     </div>
 </nav>
 
@@ -149,18 +132,38 @@
             <img src="images/hera.jpg" alt="Hera" class="maskot-img">
         </div>
 
-        <div style="margin-top: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+        <div class="card" style="margin-top: 40px; border-top: 5px solid var(--accent);" id="papan-info">
+            <h3>📢 Informasi Peminjaman Buku</h3>
+            <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 15px;">Daftar teman-teman yang sedang meminjam buku. Mohon dikembalikan tepat waktu ya! (Nama akan hilang otomatis setelah 7 hari).</p>
+            <div style="overflow-x: auto;">
+                <table id="tabel-publik">
+                    <thead>
+                        <tr>
+                            <th>Nama Siswa</th>
+                            <th>Kelas</th>
+                            <th>Judul Buku</th>
+                            <th>Tgl Pinjam</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-publik">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
             <div class="card">
                 <h3>📖 Visi</h3>
                 <p>Menjadi pusat sumber belajar yang inspiratif untuk membentuk generasi yang cerdas, gemar membaca, dan takut akan Tuhan.</p>
             </div>
             <div class="card">
                 <h3>🚀 Misi</h3>
-                <ul>
-                    <li>Koleksi bacaan berkualitas & edukatif.</li>
-                    <li>Program literasi inovatif & menyenangkan.</li>
-                    <li>Ruang kreatif yang nyaman & ramah anak.</li>
-                    <li>Pemanfaatan teknologi informasi di sekolah.</li>
+                <ul style="padding-left: 20px;">
+                    <li style="list-style-type: disc;">Koleksi bacaan berkualitas & edukatif.</li>
+                    <li style="list-style-type: disc;">Program literasi inovatif & menyenangkan.</li>
+                    <li style="list-style-type: disc;">Ruang kreatif yang nyaman & ramah anak.</li>
+                    <li style="list-style-type: disc;">Pemanfaatan teknologi informasi di sekolah.</li>
                 </ul>
             </div>
         </div>
@@ -174,7 +177,6 @@
     </header>
     <div class="container">
         <div class="rules-grid">
-            
             <div class="rule-card">
                 <h4><span class="rule-icon">⏰</span> A. Jam Layanan</h4>
                 <ul>
@@ -183,42 +185,33 @@
                     <li><em>(Perpustakaan tutup pada hari libur nasional dan hari libur sekolah)</em></li>
                 </ul>
             </div>
-            
             <div class="rule-card border-green">
                 <h4><span class="rule-icon">👥</span> B. Ketentuan Pengunjung</h4>
                 <ul>
-                    <li><strong>Mengisi Daftar Hadir:</strong> Setiap pengunjung wajib mengisi buku kunjungan atau sistem presensi digital perpustakaan saat baru memasuki ruangan.</li>
-                    <li><strong>Sepatu Dilepas:</strong> Saat duduk di karpet sepatu wajib dilepas dan ditaruh di rak sepatu yang ada di luar.</li>
-                    <li><strong>Menjaga Ketenangan:</strong> Pengunjung dilarang berbicara dengan suara keras, berlarian, atau bermain di dalam perpustakaan agar tidak mengganggu pengunjung lain.</li>
-                    <li><strong>Menjaga Kebersihan:</strong> Dilarang membawa makanan dan minuman ke dalam perpustakaan. Pengunjung wajib membuang sampah pada tempatnya.</li>
-                    <li><strong>Menjaga Fasilitas:</strong> Pengunjung dilarang mencoret-coret, melipat halaman, merobek, atau merusak buku serta perabotan perpustakaan.</li>
-                    <li><strong>Selesai Membaca:</strong> Buku yang telah selesai dibaca di tempat tidak perlu dikembalikan ke rak secara mandiri, melainkan diletakkan di meja/keranjang khusus yang telah disediakan untuk dirapikan oleh petugas.</li>
+                    <li><strong>Mengisi Daftar Hadir:</strong> Wajib mengisi buku kunjungan saat baru memasuki ruangan.</li>
+                    <li><strong>Sepatu Dilepas:</strong> Sepatu wajib dilepas dan ditaruh di rak luar.</li>
+                    <li><strong>Menjaga Ketenangan:</strong> Dilarang berbicara keras, berlarian, atau bermain di dalam.</li>
+                    <li><strong>Menjaga Kebersihan:</strong> Dilarang membawa makanan dan minuman.</li>
+                    <li><strong>Selesai Membaca:</strong> Buku diletakkan di keranjang khusus untuk dirapikan petugas.</li>
                 </ul>
             </div>
-            
             <div class="rule-card border-orange">
                 <h4><span class="rule-icon">📚</span> C. Peminjaman Buku</h4>
                 <ul>
-                    <li><strong>Syarat Peminjaman:</strong> Peminjam wajib terdaftar sebagai anggota perpustakaan dan menunjukkan Kartu Anggota Perpustakaan yang masih berlaku (tidak boleh meminjam menggunakan kartu orang lain).</li>
-                    <li><strong>Batas Peminjaman:</strong> Siswa maksimal meminjam 2 (dua) eksemplar buku dalam satu kali transaksi peminjaman.</li>
-                    <li><strong>Masa Pinjam:</strong> Lama peminjaman buku adalah 1 (satu) minggu atau <span class="highlight">7 hari</span>.</li>
-                    <li><strong>Perpanjangan:</strong> Buku dapat diperpanjang masa pinjamnya sebanyak 1 (satu) kali untuk 1 minggu berikutnya, dengan syarat buku tersebut harus dibawa ke perpustakaan untuk dicatat ulang oleh petugas.</li>
-                    <li><strong>Buku Referensi:</strong> Buku referensi (Kamus, Ensiklopedia, Atlas) dan majalah/koran edisi terbaru tidak untuk dipinjamkan pulang dan hanya boleh dibaca di dalam ruangan perpustakaan.</li>
-                    <li><strong>Pengembalian buku:</strong> Pengembalian buku dilakukan dengan menyerahkan buku ke petugas perpustakaan kemudian akan di scan/dicatat agar tercatat sudah mengembalikan buku.</li>
+                    <li><strong>Syarat Peminjaman:</strong> Wajib menunjukkan Kartu Anggota sendiri.</li>
+                    <li><strong>Batas Peminjaman:</strong> Maksimal meminjam 2 (dua) eksemplar buku.</li>
+                    <li><strong>Masa Pinjam:</strong> Lama peminjaman buku adalah <span class="highlight">7 hari</span>.</li>
+                    <li><strong>Buku Referensi:</strong> Kamus dan Ensiklopedia hanya boleh dibaca di ruangan.</li>
                 </ul>
             </div>
-            
             <div class="rule-card border-red">
                 <h4><span class="rule-icon">🚨</span> D. Sanksi Pelanggaran</h4>
-                <p style="margin-bottom: 15px; font-size: 0.9rem; color: #64748b; padding-left: 5px;">Untuk mendidik siswa bertanggung jawab, perpustakaan memberlakukan sanksi sebagai berikut:</p>
                 <ul>
-                    <li><strong>Keterlambatan Pengembalian:</strong> Siswa yang terlambat mengembalikan buku akan dikenakan sanksi berupa teguran lisan, tidak diperkenankan meminjam buku selama jangka waktu tertentu (misal: 3 hari), atau sanksi edukatif (misal: merangkum isi buku).</li>
-                    <li><strong>Buku Rusak (Ringan):</strong> Jika buku rusak ringan (sampul terlepas, lecek), peminjam wajib memperbaiki buku tersebut sebelum dikembalikan.</li>
-                    <li><strong>Buku Rusak Berat / Hilang:</strong> Jika buku hilang atau rusak parah sehingga tidak bisa dibaca lagi, peminjam wajib mengganti dengan buku yang sama (atau buku lain yang sejenis atas persetujuan petugas) atau mengganti dengan uang seharga buku tersebut.</li>
-                    <li><strong>Pelanggaran Ketertiban:</strong> Siswa yang berulang kali membuat keributan di perpustakaan akan diminta keluar dari ruangan dan dilaporkan kepada Wali Kelas.</li>
+                    <li><strong>Keterlambatan:</strong> Teguran lisan atau sanksi edukatif.</li>
+                    <li><strong>Buku Rusak:</strong> Wajib memperbaiki buku tersebut sebelum dikembalikan.</li>
+                    <li><strong>Buku Hilang:</strong> Wajib mengganti dengan buku yang sama atau uang seharga buku.</li>
                 </ul>
             </div>
-            
         </div>
     </div>
 </div>
@@ -230,79 +223,80 @@
     </header>
     <div class="container">
         <div class="rules-grid">
-
             <div class="rule-card">
                 <h4><span class="rule-icon">🎯</span> 1 & 2. Pendahuluan</h4>
-                <span class="doc-title">1. Tujuan</span>
-                <p style="margin-bottom: 15px; font-size: 0.95rem; color: var(--text);">Sebagai acuan bagi petugas perpustakaan dan warga sekolah dalam proses pendaftaran, pengelolaan, dan penonaktifan keanggotaan perpustakaan guna mewujudkan ketertiban administrasi.</p>
-                
-                <span class="doc-title">2. Sasaran</span>
-                <p style="font-size: 0.95rem; color: var(--text);">Seluruh siswa, guru, dan staf/karyawan SD Kristen 04 Eben Haezer.</p>
+                <p>Sebagai acuan bagi petugas dan warga sekolah dalam pendaftaran keanggotaan. Sasaran: Seluruh siswa, guru, dan staf.</p>
             </div>
-
             <div class="rule-card border-green">
                 <h4><span class="rule-icon">📝</span> 3 & 4. Pendaftaran Anggota</h4>
-                <span class="doc-title">3. Syarat Pendaftaran</span>
-                <ul style="margin-bottom: 20px;">
-                    <li>Merupakan siswa aktif, guru, atau staf di SD Kristen 04 Eben Haezer.</li>
-                    <li>Mengisi formulir pendaftaran anggota yang disediakan oleh petugas perpustakaan.</li>
-                    <li>Menyerahkan pas foto terbaru ukuran 2x3 (sebanyak 2 lembar) atau melakukan sesi foto langsung oleh petugas.</li>
+                <ul>
+                    <li>Siswa/Guru/Staf aktif.</li>
+                    <li>Menyerahkan pas foto 2x3 (2 lembar).</li>
                     <li><span class="highlight">Pendaftaran tidak dipungut biaya (Gratis).</span></li>
                 </ul>
-
-                <span class="doc-title">4. Prosedur Pendaftaran</span>
-                <ul>
-                    <li><strong>Verifikasi Data:</strong> Petugas perpustakaan memeriksa kelengkapan data dan mencocokannya dengan data kesiswaan atau kepegawaian sekolah.</li>
-                    <li><strong>Input Data:</strong> Petugas memasukkan data anggota ke dalam sistem buku induk perpustakaan atau aplikasi perpustakaan digital (jika ada).</li>
-                    <li><strong>Pencetakan Kartu:</strong> Petugas mencetak Kartu Anggota Perpustakaan.</li>
-                    <li><strong>Penyerahan Kartu:</strong> Kartu yang sudah diproses diserahkan kepada anggota.</li>
-                </ul>
             </div>
-
             <div class="rule-card border-orange">
                 <h4><span class="rule-icon">⚖️</span> 5 & 6. Hak & Kewajiban</h4>
-                <span class="doc-title">5. Masa Berlaku Keanggotaan</span>
-                <ul style="margin-bottom: 20px;">
-                    <li><strong>Siswa:</strong> Masa berlaku keanggotaan adalah selama yang bersangkutan masih berstatus sebagai siswa aktif di SD Kristen 04 Eben Haezer (dari kelas 1 hingga lulus kelas 6).</li>
-                    <li><strong>Guru/Staf:</strong> Selama masih bertugas di SD Kristen 04 Eben Haezer.</li>
-                </ul>
-
-                <span class="doc-title">6. Hak dan Kewajiban Anggota</span>
-                <p style="font-weight: 600; font-size: 0.95rem; margin-top: 10px; margin-bottom: 5px; color: var(--primary);">Hak Anggota:</p>
-                <ul style="margin-bottom: 15px;">
-                    <li>Mendapatkan Kartu Anggota Perpustakaan.</li>
-                    <li>Meminjam buku dan materi pustaka lainnya sesuai dengan ketentuan yang berlaku.</li>
-                    <li>Menggunakan fasilitas komputer atau area baca di dalam perpustakaan.</li>
-                    <li>Mengikuti kegiatan atau program yang diselenggarakan oleh perpustakaan (seperti lomba literasi, bedah buku, dll).</li>
-                </ul>
-
-                <p style="font-weight: 600; font-size: 0.95rem; margin-bottom: 5px; color: var(--primary);">Kewajiban Anggota:</p>
                 <ul>
-                    <li>Membawa Kartu Anggota setiap kali akan melakukan transaksi peminjaman atau pengembalian.</li>
-                    <li>Mematuhi seluruh tata tertib perpustakaan.</li>
-                    <li>Menjaga keawetan dan kebersihan kartu anggota (tidak boleh dicoret-coret atau dilaminating ulang tanpa izin).</li>
+                    <li>Berhak meminjam buku dan akses komputer.</li>
+                    <li>Wajib membawa kartu setiap transaksi.</li>
+                    <li>Menjaga keawetan kartu.</li>
                 </ul>
             </div>
-
             <div class="rule-card border-red">
                 <h4><span class="rule-icon">💳</span> 7 & 8. Kartu Hilang & Penonaktifan</h4>
-                <span class="doc-title">7. Prosedur Kehilangan Kartu</span>
-                <ul style="margin-bottom: 20px;">
-                    <li>Anggota memberitahu kepada petugas.</li>
-                    <li>Sekolah dapat mengenakan biaya administrasi penggantian kartu (misal: Rp5.000,-) sebagai bentuk edukasi tanggung jawab.</li>
-                    <li>Petugas akan mencetak kartu pengganti dengan nomor anggota yang sama.</li>
-                </ul>
-
-                <span class="doc-title">8. Penonaktifan Keanggotaan</span>
-                <p style="margin-bottom: 10px; font-size: 0.95rem; color: var(--text);">Keanggotaan dinyatakan berakhir apabila:</p>
                 <ul>
-                    <li>Siswa telah lulus dari kelas 6.</li>
-                    <li>Siswa, guru, atau staf pindah sekolah (mutasi).</li>
-                    <li>Peminjam melakukan pelanggaran berat terhadap tata tertib perpustakaan (berdasarkan keputusan Kepala Sekolah/Kepala Perpustakaan).</li>
-                    <li><strong>Syarat Bebas Pustaka:</strong> Sebelum meninggalkan sekolah secara permanen, setiap anggota wajib mengembalikan semua buku pinjaman dan menyelesaikan denda (jika ada) untuk mendapatkan Surat Keterangan Bebas Pustaka.</li>
+                    <li>Kartu hilang dikenakan biaya cetak Rp5.000,-.</li>
+                    <li>Wajib Bebas Pustaka sebelum lulus atau pindah sekolah.</li>
                 </ul>
             </div>
+        </div>
+    </div>
+</div>
 
+<div id="admin" class="page-section">
+    <header class="header-main bg-admin">
+        <h1>Panel Admin Perpustakaan</h1>
+        <p>Kelola Data Peminjaman Siswa</p>
+    </header>
+    <div class="container">
+        <div class="card" style="border-top: 5px solid #1e293b;">
+            <h3>➕ Tambah Data Peminjam</h3>
+            <form id="form-admin" onsubmit="tambahData(event)">
+                <div class="form-group">
+                    <label>Nama Siswa</label>
+                    <input type="text" id="inputNama" class="form-control" required placeholder="Contoh: Budi Santoso">
+                </div>
+                <div class="form-group">
+                    <label>Kelas</label>
+                    <input type="text" id="inputKelas" class="form-control" required placeholder="Contoh: 4A">
+                </div>
+                <div class="form-group">
+                    <label>Judul Buku</label>
+                    <input type="text" id="inputBuku" class="form-control" required placeholder="Contoh: Cerita Rakyat Nusantara">
+                </div>
+                <button type="submit" class="btn-submit">Simpan Data</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>📂 Daftar Peminjaman Aktif</h3>
+            <p style="font-size: 0.85rem; color: #ef4444;">*Data akan otomatis terhapus dari sistem setelah 7 hari sejak tanggal input.</p>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama Siswa</th>
+                            <th>Kelas</th>
+                            <th>Buku</th>
+                            <th>Tanggal Pinjam</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-admin">
+                        </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -314,13 +308,135 @@
 </footer>
 
 <script>
+    // FUNGSI NAVIGASI
     function showPage(pageId, element) {
         document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        element.classList.add('active');
+        if(element) element.classList.add('active');
         window.scrollTo(0,0);
     }
+
+    // FUNGSI LOGIN ADMIN
+    function aksesAdmin() {
+        let password = prompt("Masukkan Password Admin:");
+        if (password === "admin123") {
+            showPage('admin', document.getElementById('nav-admin'));
+            muatData(); // Muat tabel admin
+        } else if (password !== null) {
+            alert("Password Salah! Akses Ditolak.");
+        }
+    }
+
+    // FUNGSI LOGIK SISTEM DATA (LOCAL STORAGE)
+    const MAX_HARI = 7;
+
+    function tambahData(event) {
+        event.preventDefault();
+        const nama = document.getElementById('inputNama').value;
+        const kelas = document.getElementById('inputKelas').value;
+        const buku = document.getElementById('inputBuku').value;
+        
+        // Buat tanggal hari ini
+        const tglSekarang = new Date();
+        const dataBaru = {
+            id: Date.now(),
+            nama: nama,
+            kelas: kelas,
+            buku: buku,
+            tglPinjam: tglSekarang.toISOString()
+        };
+
+        // Ambil data lama, tambah data baru, simpan kembali
+        let dataPeminjam = JSON.parse(localStorage.getItem('dataPerpus')) || [];
+        dataPeminjam.push(dataBaru);
+        localStorage.setItem('dataPerpus', JSON.stringify(dataPeminjam));
+
+        // Bersihkan form
+        document.getElementById('form-admin').reset();
+        alert("Data berhasil ditambahkan!");
+        muatData();
+    }
+
+    function hapusData(id) {
+        if(confirm("Apakah Anda yakin siswa ini sudah mengembalikan buku?")) {
+            let dataPeminjam = JSON.parse(localStorage.getItem('dataPerpus')) || [];
+            dataPeminjam = dataPeminjam.filter(data => data.id !== id);
+            localStorage.setItem('dataPerpus', JSON.stringify(dataPeminjam));
+            muatData();
+        }
+    }
+
+    function muatData() {
+        let dataPeminjam = JSON.parse(localStorage.getItem('dataPerpus')) || [];
+        const tbodyPublik = document.getElementById('tbody-publik');
+        const tbodyAdmin = document.getElementById('tbody-admin');
+        const sekarang = new Date();
+
+        // Array untuk menyimpan data yang masih valid (< 7 hari)
+        let dataValid = [];
+
+        tbodyPublik.innerHTML = '';
+        tbodyAdmin.innerHTML = '';
+
+        if(dataPeminjam.length === 0) {
+            tbodyPublik.innerHTML = '<tr><td colspan="5" style="text-align:center;">Belum ada data peminjaman.</td></tr>';
+            tbodyAdmin.innerHTML = '<tr><td colspan="5" style="text-align:center;">Belum ada data peminjaman.</td></tr>';
+            return;
+        }
+
+        dataPeminjam.forEach(data => {
+            const tglPinjam = new Date(data.tglPinjam);
+            // Hitung selisih waktu dalam hari
+            const selisihWaktu = Math.abs(sekarang - tglPinjam);
+            const selisihHari = Math.ceil(selisihWaktu / (1000 * 60 * 60 * 24)) - 1; // -1 karena hari H dihitung 0
+
+            // HANYA tampilkan yang belum lewat 7 hari
+            if (selisihHari <= MAX_HARI) {
+                dataValid.push(data);
+                
+                // Format tanggal untuk tampilan (DD/MM/YYYY)
+                const tglTampil = tglPinjam.toLocaleDateString('id-ID');
+                const sisaWaktu = MAX_HARI - selisihHari;
+                
+                // Baris untuk Publik (Profil)
+                tbodyPublik.innerHTML += `
+                    <tr>
+                        <td data-label="Nama">${data.nama}</td>
+                        <td data-label="Kelas">${data.kelas}</td>
+                        <td data-label="Buku">${data.buku}</td>
+                        <td data-label="Tgl Pinjam">${tglTampil}</td>
+                        <td data-label="Status"><span class="badge-sisa">Sisa ${sisaWaktu} Hari</span></td>
+                    </tr>
+                `;
+
+                // Baris untuk Admin
+                tbodyAdmin.innerHTML += `
+                    <tr>
+                        <td data-label="Nama">${data.nama}</td>
+                        <td data-label="Kelas">${data.kelas}</td>
+                        <td data-label="Buku">${data.buku}</td>
+                        <td data-label="Tgl Pinjam">${tglTampil}</td>
+                        <td data-label="Aksi"><button class="btn-delete" onclick="hapusData(${data.id})">Selesai/Hapus</button></td>
+                    </tr>
+                `;
+            }
+        });
+
+        // Simpan kembali hanya data yang valid (otomatis menghapus yang > 7 hari)
+        localStorage.setItem('dataPerpus', JSON.stringify(dataValid));
+
+        // Jika setelah difilter ternyata kosong
+        if(dataValid.length === 0) {
+            tbodyPublik.innerHTML = '<tr><td colspan="5" style="text-align:center;">Semua buku telah dikembalikan.</td></tr>';
+            tbodyAdmin.innerHTML = '<tr><td colspan="5" style="text-align:center;">Semua buku telah dikembalikan.</td></tr>';
+        }
+    }
+
+    // Jalankan saat pertama kali website dibuka
+    window.onload = function() {
+        muatData();
+    };
 </script>
 
 </body>
