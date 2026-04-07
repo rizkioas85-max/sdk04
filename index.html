@@ -42,14 +42,16 @@
         .bg-profil { background: linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(59, 130, 246, 0.7) 100%), url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80') center/cover; }
         .bg-tatatertib { background: linear-gradient(135deg, rgba(234, 88, 12, 0.85) 0%, rgba(245, 158, 11, 0.75) 100%), url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80') center/cover; }
         .bg-keanggotaan { background: linear-gradient(135deg, rgba(4, 120, 87, 0.85) 0%, rgba(16, 185, 129, 0.75) 100%), url('https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?auto=format&fit=crop&q=80') center/cover; }
+        .bg-logo { background: linear-gradient(135deg, rgba(147, 51, 234, 0.85) 0%, rgba(192, 132, 252, 0.75) 100%), url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80') center/cover; }
         .bg-admin { background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(71, 85, 105, 0.8) 100%), url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80') center/cover; }
 
         .container { max-width: 1000px; margin: auto; padding: 30px 20px; }
 
-        /* Maskot Intro */
+        /* Maskot & Logo Display */
         .maskot-intro { display: flex; align-items: center; gap: 25px; background: white; padding: 30px; border-radius: 30px; margin-top: -60px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); flex-wrap: wrap; justify-content: center; position: relative; z-index: 5; border: 1px solid #eef2f6; }
         .maskot-img { width: 110px; height: 110px; border-radius: 50%; border: 4px solid white; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .maskot-text { flex: 1; min-width: 280px; text-align: center; }
+        .logo-display { display: block; margin: 0 auto 20px; max-width: 280px; height: auto; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15)); }
 
         /* Card Umum */
         .card { background: white; padding: 35px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 25px; border: 1px solid #eef2f6; transition: 0.3s; }
@@ -61,6 +63,7 @@
         .rule-card.border-green { border-top-color: var(--success); }
         .rule-card.border-orange { border-top-color: var(--accent); }
         .rule-card.border-red { border-top-color: var(--danger); }
+        .rule-card.border-purple { border-top-color: #9333ea; }
         .rule-card h4 { display: flex; align-items: center; gap: 10px; color: var(--primary); font-size: 1.1rem; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
         
         ul { list-style: none; }
@@ -69,10 +72,11 @@
         .rule-card.border-green li::before { color: var(--success); }
         .rule-card.border-orange li::before { color: var(--accent); }
         .rule-card.border-red li::before { content: "⚠️"; font-size: 0.9rem; top: 3px; }
+        .rule-card.border-purple li::before { content: "✦"; color: #9333ea; }
 
         .highlight { background: #fffbeb; padding: 2px 5px; border-radius: 4px; color: #b45309; font-weight: 600; }
         .doc-section { margin-bottom: 25px; }
-        .doc-title { font-weight: 700; color: var(--primary); margin-bottom: 8px; display: block; font-size: 1.1rem; }
+        .doc-title { font-weight: 700; color: var(--primary); margin-bottom: 8px; display: block; font-size: 1.05rem; }
 
         /* Tampilan Tabel Data */
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
@@ -122,6 +126,7 @@
         <a class="nav-link active" onclick="showPage('profil', this)" id="nav-profil">Home</a>
         <a class="nav-link" onclick="showPage('tata-tertib', this)">Tata Tertib</a>
         <a class="nav-link" onclick="showPage('keanggotaan', this)">Keanggotaan</a>
+        <a class="nav-link" onclick="showPage('logo-filosofi', this)">Filosofi Logo</a>
         <a class="nav-link btn-admin" onclick="aksesAdmin()" id="nav-admin">Admin</a>
     </div>
 </nav>
@@ -259,6 +264,56 @@
                     <li>Wajib Bebas Pustaka sebelum lulus atau pindah sekolah.</li>
                 </ul>
             </div>
+        </div>
+    </div>
+</div>
+
+<div id="logo-filosofi" class="page-section">
+    <header class="header-main bg-logo">
+        <h1>Filosofi Logo</h1>
+        <p>Makna di Balik Identitas Pelangi Pustaka</p>
+    </header>
+    <div class="container">
+        <div class="card" style="text-align: center;">
+            <img src="images/logo-pelangi.png" alt="Logo Pelangi Pustaka" class="logo-display">
+            <p style="font-size: 1.05rem; font-weight: 600; color: var(--primary); max-width: 800px; margin: 0 auto;">
+                "Perpustakaan bukanlah sekadar tempat menyimpan buku yang kaku, melainkan sebuah taman bermain imajinasi yang hangat dan ceria."
+            </p>
+        </div>
+
+        <div class="rules-grid">
+            <div class="rule-card border-orange">
+                <h4><span class="rule-icon">🌈</span> Elemen Utama</h4>
+                <span class="doc-title">📖 Buku Terbuka (Pustaka)</span>
+                <p style="margin-bottom: 15px; font-size: 0.9rem; color: var(--text);">Terletak tepat di tengah bawah, buku yang terbuka melambangkan jendela dunia, kesiapan untuk menerima ilmu pengetahuan, dan keterbukaan pikiran. Ini adalah fondasi utama dari sebuah perpustakaan sebagai pusat literasi dan belajar.</p>
+                
+                <span class="doc-title">🌈 Pelangi</span>
+                <p style="font-size: 0.9rem; color: var(--text);">Menghubungkan langsung dengan nama "Pelangi Pustaka". Pelangi melambangkan keindahan dalam keberagaman ilmu pengetahuan, kreativitas, dan imajinasi anak-anak. Dalam konteks sekolah Kristen, pelangi juga merupakan simbol harapan dan janji penyertaan Tuhan.</p>
+            </div>
+
+            <div class="rule-card border-purple">
+                <h4><span class="rule-icon">🐝</span> Karakter Pendukung</h4>
+                <ul style="margin-bottom: 0;">
+                    <li><strong>🍎 Apel Tersenyum:</strong> Berkaitan dengan pendidikan dan kesehatan. Melambangkan proses belajar yang menyenangkan <em>(joyful learning)</em>.</li>
+                    <li><strong>🐝 Lebah Tersenyum:</strong> Simbol ketekunan. Mengajarkan anak-anak untuk rajin "mengumpulkan sari madu" (membaca buku) yang nantinya menghasilkan sesuatu yang manis bagi masa depan.</li>
+                    <li><strong>⭐ Bintang Tersenyum:</strong> Melambangkan cita-cita tinggi dan keunggulan. Pesan bahwa setiap anak berpotensi bersinar terang.</li>
+                    <li><strong>☁️ Awan:</strong> Mewakili ruang imajinasi yang tak terbatas saat anak-anak berpetualang lewat buku.</li>
+                </ul>
+            </div>
+
+            <div class="rule-card border-green">
+                <h4><span class="rule-icon">🎨</span> Bentuk dan Warna</h4>
+                <span class="doc-title">⭕ Bentuk Lingkaran</span>
+                <p style="margin-bottom: 15px; font-size: 0.9rem; color: var(--text);">Melambangkan kesatuan, keutuhan, dan perlindungan. Menunjukkan bahwa "Pelangi Pustaka" adalah lingkungan yang aman, inklusif, dan mewadahi seluruh siswa dalam satu semangat literasi.</p>
+                
+                <span class="doc-title">🟡 Latar Kuning Pastel</span>
+                <p style="font-size: 0.9rem; color: var(--text);">Memancarkan kehangatan, keceriaan, dan optimisme. Warna lembut ini membuat logo terasa ramah anak <em>(child-friendly)</em>, tidak mengintimidasi, dan mengundang siswa untuk merasa nyaman.</p>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 25px; border-left: 5px solid var(--secondary);">
+            <h3><span class="rule-icon">✨</span> Kesimpulan Filosofi</h3>
+            <p>Dengan ketekunan (lebah) dan semangat belajar (apel), siswa-siswi SD Kristen 04 Eben Haezer diajak untuk membuka wawasan (buku), merajut harapan (pelangi), dan meraih cita-cita tertinggi mereka (bintang) di bawah lindungan kasih Tuhan.</p>
         </div>
     </div>
 </div>
