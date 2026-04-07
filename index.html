@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Perpustakaan Pelangi Pustaka</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1e3a8a; --secondary: #3b82f6; --accent: #f59e0b; --success: #10b981; --danger: #ef4444; --light: #f8fafc; --text: #334155; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--light); color: var(--text); line-height: 1.7; }
+
+        /* Navigation */
+        nav { 
+            background: white; padding: 10px 30px; display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--secondary);
+        }
+        .nav-logo-block { display: flex; align-items: center; gap: 12px; }
+        .main-logo-img { height: 45px; width: auto; }
+        .logo-title { font-weight: 700; color: var(--primary); font-size: 1.1rem; }
+
+        .nav-menu { display: flex; gap: 8px; flex-wrap: wrap; }
+        .nav-link { 
+            text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.8rem;
+            padding: 8px 15px; border-radius: 8px; transition: 0.3s; cursor: pointer;
+        }
+        .nav-link.active { background: var(--secondary); color: white; }
+
+        /* Sections Toggle */
+        .page-section { display: none; padding-bottom: 60px; }
+        .page-section.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Header dengan Padding Luas agar Teks tidak Tertutup */
+        header {
+            background: linear-gradient(rgba(30, 58, 138, 0.85), rgba(30, 58, 138, 0.85)), url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80') center/cover;
+            color: white; 
+            padding: 110px 20px 110px; 
+            text-align: center;
+        }
+
+        .container { max-width: 1000px; margin: auto; padding: 30px 20px; }
+
+        /* Maskot Intro */
+        .maskot-intro { 
+            display: flex; align-items: center; gap: 25px; background: white; padding: 30px; 
+            border-radius: 30px; margin-top: -60px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            flex-wrap: wrap; justify-content: center; position: relative; z-index: 5; border: 1px solid #eef2f6;
+        }
+        .maskot-img { width: 110px; height: 110px; border-radius: 50%; border: 4px solid white; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .maskot-text { flex: 1; min-width: 280px; text-align: center; }
+
+        /* Card & Doc Styles */
+        .card { background: white; padding: 35px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 25px; border: 1px solid #eef2f6; }
+        .card h3 { color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        
+        .doc-section { margin-bottom: 25px; }
+        .doc-title { font-weight: 700; color: var(--primary); margin-bottom: 8px; display: block; font-size: 1.1rem; }
+        
+        ul { list-style: none; }
+        li { margin-bottom: 10px; padding-left: 25px; position: relative; font-size: 0.95rem; }
+        li::before { content: "•"; position: absolute; left: 5px; color: var(--secondary); font-weight: bold; }
+
+        .highlight { background: #fffbeb; padding: 2px 5px; border-radius: 4px; color: #b45309; font-weight: 600; }
+
+        footer { background: #1e293b; color: white; text-align: center; padding: 50px 20px; margin-top: 40px; }
+
+        @media (max-width: 768px) { 
+            nav { flex-direction: column; padding: 15px; } 
+            .nav-menu { margin-top: 10px; width: 100%; justify-content: center; }
+            header h1 { font-size: 1.8rem; }
+            header { padding: 90px 20px 90px; }
+            .maskot-intro { margin-top: -45px; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-logo-block">
+        <img src="images/logo-pelangi.png" alt="Logo" class="main-logo-img">
+        <span class="logo-title">Pelangi Pustaka</span>
+    </div>
+    <div class="nav-menu">
+        <a class="nav-link active" onclick="showPage('profil', this)">Profil</a>
+        <a class="nav-link" onclick="showPage('tata-tertib', this)">Tata Tertib</a>
+        <a class="nav-link" onclick="showPage('keanggotaan', this)">Keanggotaan</a>
+    </div>
+</nav>
+
+<div id="profil" class="page-section active">
+    <header>
+        <h1>Profil Perpustakaan</h1>
+        <p>SD Kristen 04 Eben Haezer Salatiga</p>
+    </header>
+    <div class="container">
+        <div class="maskot-intro">
+            <img src="images/ezo.jpg" alt="Ezo" class="maskot-img">
+            <div class="maskot-text">
+                <h3>Shalom! Kami Ezo & Hera</h3>
+                <p>Selamat datang di rumah buku kami yang ceria! Kami siap menemani teman-teman menjelajahi dunia lewat membaca.</p>
+            </div>
+            <img src="images/hera.jpg" alt="Hera" class="maskot-img">
+        </div>
+
+        <div style="margin-top: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div class="card">
+                <h3>📖 Visi</h3>
+                <p>Menjadi pusat sumber belajar yang inspiratif untuk membentuk generasi yang cerdas, gemar membaca, dan takut akan Tuhan.</p>
+            </div>
+            <div class="card">
+                <h3>🚀 Misi</h3>
+                <ul>
+                    <li>Koleksi bacaan berkualitas & edukatif.</li>
+                    <li>Program literasi inovatif & menyenangkan.</li>
+                    <li>Ruang kreatif yang nyaman & ramah anak.</li>
+                    <li>Pemanfaatan teknologi informasi di sekolah.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tata-tertib" class="page-section">
+    <header style="background: linear-gradient(rgba(245, 158, 11, 0.9), rgba(245, 158, 11, 0.9)), url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80');">
+        <h1>Tata Tertib Lengkap</h1>
+        <p>Mari Kita Jaga Kenyamanan & Ketertiban Bersama</p>
+    </header>
+    <div class="container">
+        <div class="card">
+            <div class="doc-section">
+                <span class="doc-title">A. Jam Layanan</span>
+                <ul>
+                    <li>Senin – Jumat: 07.00 – 14.00 WIB.</li>
+                    <li>Layanan tetap buka selama jam istirahat siswa.</li>
+                    <li>Tutup pada hari libur nasional dan sekolah.</li>
+                </ul>
+            </div>
+            <div class="doc-section">
+                <span class="doc-title">B. Ketentuan Pengunjung</span>
+                <ul>
+                    <li>Wajib mengisi buku kunjungan atau sistem presensi digital.</li>
+                    <li>Sepatu wajib dilepas dan diletakkan rapi di rak luar.</li>
+                    <li>Dilarang berbicara keras, berlarian, atau bermain di dalam.</li>
+                    <li>Dilarang membawa makanan dan minuman.</li>
+                    <li>Buku yang selesai dibaca diletakkan di meja/keranjang khusus.</li>
+                </ul>
+            </div>
+            <div class="doc-section">
+                <span class="doc-title">C. Aturan Peminjaman</span>
+                <ul>
+                    <li>Wajib menunjukkan Kartu Anggota sendiri.</li>
+                    <li>Maksimal meminjam 2 eksemplar buku.</li>
+                    <li>Lama pinjam maksimal 7 hari (dapat diperpanjang 1x).</li>
+                    <li>Kamus & Ensiklopedia hanya boleh baca di tempat.</li>
+                </ul>
+            </div>
+            <div class="doc-section">
+                <span class="doc-title">D. Sanksi Pelanggaran</span>
+                <ul>
+                    <li>Keterlambatan: Teguran atau skorsing peminjaman.</li>
+                    <li>Rusak/Hilang: Wajib memperbaiki atau mengganti dengan buku/uang senilai.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="keanggotaan" class="page-section">
+    <header style="background: linear-gradient(rgba(16, 185, 129, 0.9), rgba(16, 185, 129, 0.9)), url('https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?auto=format&fit=crop&q=80');">
+        <h1>SOP Keanggotaan</h1>
+        <p>Informasi Pendaftaran Anggota Pelangi Pustaka</p>
+    </header>
+    <div class="container">
+        <div class="card">
+            <div class="doc-section">
+                <span class="doc-title">1. Syarat Pendaftaran</span>
+                <ul>
+                    <li>Terbuka untuk Siswa aktif, Guru, dan Staf sekolah.</li>
+                    <li>Mengisi formulir & pas foto 2x3 (2 lembar).</li>
+                    <li class="highlight">Pendaftaran GRATIS (Tanpa biaya).</li>
+                </ul>
+            </div>
+            <div class="doc-section">
+                <span class="doc-title">2. Prosedur Pendaftaran</span>
+                <ul>
+                    <li>Verifikasi data kesiswaan/kepegawaian.</li>
+                    <li>Input data ke sistem digital.</li>
+                    <li>Pencetakan dan penyerahan Kartu Anggota.</li>
+                </ul>
+            </div>
+            <div class="doc-section">
+                <span class="doc-title">3. Ketentuan Kartu</span>
+                <ul>
+                    <li>Masa berlaku selama masih aktif di sekolah.</li>
+                    <li>Kartu hilang: Wajib lapor (Ganti cetak: Rp 5.000,-).</li>
+                    <li>Wajib Bebas Pustaka sebelum meninggalkan sekolah permanen.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <img src="images/logo-pelangi.png" alt="Logo" style="height:45px; margin-bottom:15px;">
+    <p><strong>Pelangi Pustaka</strong> - SD Kristen 04 Eben Haezer</p>
+    <p style="font-size:0.8rem; opacity:0.6; margin-top:10px;">&copy; 2026 Mendukung Literasi Sekolah Bersama Ezo & Hera</p>
+</footer>
+
+<script>
+    function showPage(pageId, element) {
+        document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        element.classList.add('active');
+        window.scrollTo(0,0);
+    }
+</script>
+
+</body>
+</html>
