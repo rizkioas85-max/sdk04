@@ -102,8 +102,13 @@
         .form-control { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; }
         .btn-submit { background: var(--success); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.3s; }
         .btn-submit:hover { background: #059669; }
+        
+        /* Tombol Aksi Tabel */
+        .action-buttons { display: flex; gap: 5px; flex-wrap: wrap; }
         .btn-delete { background: var(--danger); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: bold; transition: 0.3s; }
         .btn-delete:hover { background: #b91c1c; }
+        .btn-edit { background: var(--secondary); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: bold; transition: 0.3s; }
+        .btn-edit:hover { background: #2563eb; }
 
         footer { background: #1e293b; color: white; text-align: center; padding: 50px 20px; margin-top: 40px; }
 
@@ -117,6 +122,7 @@
             th { display: none; }
             td { position: relative; padding-left: 45%; border-bottom: 1px solid #eee; min-height: 40px; }
             td::before { position: absolute; left: 10px; font-weight: bold; content: attr(data-label); color: var(--primary); }
+            .action-buttons { justify-content: flex-start; }
         }
     </style>
 </head>
@@ -411,13 +417,18 @@
                     <label>Judul Buku</label>
                     <input type="text" id="inputBuku" class="form-control" required placeholder="Contoh: Cerita Rakyat Nusantara">
                 </div>
+                <div class="form-group">
+                    <label>Tanggal Pinjam</label>
+                    <p style="font-size:0.8rem; color:#64748b; margin-top:-5px; margin-bottom:5px;">Otomatis hari ini. Bisa dimundurkan jika admin lupa mengisi kemarin.</p>
+                    <input type="date" id="inputTanggal" class="form-control" required>
+                </div>
                 <button type="submit" class="btn-submit">Simpan Data Pinjam</button>
             </form>
         </div>
 
         <div class="card">
             <h3>📂 Daftar Semua Peminjaman</h3>
-            <p style="font-size: 0.85rem; color: #ef4444;">*Data <strong>TIDAK AKAN</strong> terhapus otomatis meskipun sudah lewat 7 hari. Anda harus mengklik tombol "Dikembalikan" secara manual jika buku sudah diserahkan siswa.</p>
+            <p style="font-size: 0.85rem; color: #ef4444;">*Data <strong>TIDAK AKAN</strong> terhapus otomatis. Anda harus mengklik tombol "Dikembalikan" secara manual jika buku sudah diserahkan siswa.</p>
             <div style="overflow-x: auto; margin-top: 15px;">
                 <table>
                     <thead>
@@ -444,6 +455,7 @@
 </footer>
 
 <script>
+    // FUNGSI NAVIGASI
     function showPage(pageId, element) {
         document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
@@ -452,6 +464,7 @@
         window.scrollTo(0,0);
     }
 
+    // FUNGSI LOGIN ADMIN
     function aksesAdmin() {
         let password = prompt("Masukkan Password Admin (Petunjuk: admin123):");
         if (password === "admin123") {
@@ -460,11 +473,22 @@
             alert("Password Salah! Akses Ditolak.");
         }
     }
+
+    // SET DEFAULT TANGGAL HARI INI SAAT WEB DIBUKA
+    document.addEventListener("DOMContentLoaded", function() {
+        let today = new Date();
+        let yyyy = today.getFullYear();
+        let mm = String(today.getMonth() + 1).padStart(2, '0');
+        let dd = String(today.getDate()).padStart(2, '0');
+        let tglForm = document.getElementById('inputTanggal');
+        if(tglForm) tglForm.value = `${yyyy}-${mm}-${dd}`;
+    });
 </script>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    // UPDATE: Menambahkan 'updateDoc' untuk fungsi Edit
+    import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBciYhL2AYoa5_iWkEirQjPRpR29rWOyIE",
@@ -480,13 +504,16 @@
     const db = getFirestore(app);
     const MAX_HARI = 7;
 
+    // FUNGSI MENAMBAH DATA
     window.tambahData = async function(event) {
         event.preventDefault();
         const nama = document.getElementById('inputNama').value;
         const kelas = document.getElementById('inputKelas').value;
         const buku = document.getElementById('inputBuku').value;
         
-        const tglSekarang = new Date();
+        // Mengambil tanggal dari input form, bukan otomatis lagi
+        const tglInput = document.getElementById('inputTanggal').value;
+        const tglSekarang = new Date(tglInput);
         tglSekarang.setHours(0,0,0,0);
 
         try {
@@ -497,13 +524,22 @@
                 tglPinjam: tglSekarang.toISOString()
             });
             document.getElementById('form-admin').reset();
+            
+            // Kembalikan lagi form tanggal ke hari ini setelah dikosongkan
+            let today = new Date();
+            let yyyy = today.getFullYear();
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let dd = String(today.getDate()).padStart(2, '0');
+            document.getElementById('inputTanggal').value = `${yyyy}-${mm}-${dd}`;
+
             alert("Berhasil! Data telah tersimpan di Firebase.");
         } catch (e) {
             console.error("Error: ", e);
-            alert("Gagal menyimpan data! Pastikan Anda sudah terhubung internet dan Rules Firebase sudah terbuka.");
+            alert("Gagal menyimpan data! Pastikan internet menyala.");
         }
     };
 
+    // FUNGSI MENGHAPUS / SELESAI
     window.hapusData = async function(id) {
         if(confirm("Apakah buku ini sudah dikembalikan?")) {
             try {
@@ -514,6 +550,38 @@
         }
     };
 
+    // FUNGSI EDIT TANGGAL (BARU)
+    window.editTanggal = async function(id, tglLamaIso) {
+        // Ubah format ISO ke format kalender YYYY-MM-DD
+        let tglObj = new Date(tglLamaIso);
+        let yyyy = tglObj.getFullYear();
+        let mm = String(tglObj.getMonth() + 1).padStart(2, '0');
+        let dd = String(tglObj.getDate()).padStart(2, '0');
+        let formatLama = `${yyyy}-${mm}-${dd}`;
+
+        let tglBaru = prompt("Ubah Tanggal Pinjam\nFormat harus: TAHUN-BULAN-TANGGAL (Contoh: 2026-04-09)", formatLama);
+        
+        if (tglBaru !== null && tglBaru !== "") {
+            let newDate = new Date(tglBaru);
+            // Cek apakah tanggal yang dimasukkan admin benar
+            if (!isNaN(newDate.getTime())) {
+                newDate.setHours(0,0,0,0);
+                try {
+                    await updateDoc(doc(db, "peminjaman", id), {
+                        tglPinjam: newDate.toISOString()
+                    });
+                    alert("Tanggal berhasil diperbarui!");
+                } catch (e) {
+                    console.error("Error: ", e);
+                    alert("Gagal mengubah tanggal. Pastikan internet menyala.");
+                }
+            } else {
+                alert("Format tanggal salah! Penulisan harus menggunakan tanda strip, misalnya 2026-04-09.");
+            }
+        }
+    };
+
+    // FUNGSI MEMBACA DATA (REAL-TIME)
     onSnapshot(collection(db, "peminjaman"), (snapshot) => {
         const tbodyPublik = document.getElementById('tbody-publik');
         const tbodyAdmin = document.getElementById('tbody-admin');
@@ -562,13 +630,17 @@
                 </tr>
             `;
 
+            // TAMBAHAN TOMBOL EDIT TGL DI TABEL ADMIN
             tbodyAdmin.innerHTML += `
                 <tr>
                     <td data-label="Nama Siswa"><strong>${data.nama}</strong></td>
                     <td data-label="Kelas">${data.kelas}</td>
                     <td data-label="Buku">${data.buku}</td>
                     <td data-label="Tgl Pinjam">${tglTampil}</td>
-                    <td data-label="Aksi Petugas"><button class="btn-delete" onclick="hapusData('${id}')">✔ Dikembalikan</button></td>
+                    <td data-label="Aksi Petugas" class="action-buttons">
+                        <button class="btn-edit" onclick="editTanggal('${id}', '${data.tglPinjam}')">✏️ Edit Tgl</button>
+                        <button class="btn-delete" onclick="hapusData('${id}')">✔ Dikembalikan</button>
+                    </td>
                 </tr>
             `;
         });
