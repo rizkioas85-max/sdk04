@@ -536,17 +536,16 @@ th:last-child, td:last-child {
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    // UPDATE: Menambahkan 'updateDoc' untuk fungsi Edit
     import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
     const firebaseConfig = {
-      apiKey: "AIzaSyBciYhL2AYoa5_iWkEirQjPRpR29rWOyIE",
-      authDomain: "perpus-sdk04.firebaseapp.com",
-      projectId: "perpus-sdk04",
-      storageBucket: "perpus-sdk04.firebasestorage.app",
-      messagingSenderId: "850111293389",
-      appId: "1:850111293389:web:e3e44079f6863742ba8684",
-      measurementId: "G-MQB7WRV137"
+        apiKey: "AIzaSyBciYhL2AYoa5_iWkEirQjPRpR29rWOyIE",
+        authDomain: "perpus-sdk04.firebaseapp.com",
+        projectId: "perpus-sdk04",
+        storageBucket: "perpus-sdk04.firebasestorage.app",
+        messagingSenderId: "850111293389",
+        appId: "1:850111293389:web:e3e44079f6863742ba8684",
+        measurementId: "G-MQB7WRV137"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -559,142 +558,122 @@ th:last-child, td:last-child {
         const nama = document.getElementById('inputNama').value;
         const kelas = document.getElementById('inputKelas').value;
         const buku = document.getElementById('inputBuku').value;
-        
-        // Mengambil tanggal dari input form, bukan otomatis lagi
         const tglInput = document.getElementById('inputTanggal').value;
-        const tglSekarang = new Date(tglInput);
-        tglSekarang.setHours(0,0,0,0);
+        
+        const tglPinjam = new Date(tglInput);
+        tglPinjam.setHours(0,0,0,0);
 
         try {
             await addDoc(collection(db, "peminjaman"), {
                 nama: nama,
                 kelas: kelas,
                 buku: buku,
-                tglPinjam: tglSekarang.toISOString()
+                tglPinjam: tglPinjam.toISOString()
             });
             document.getElementById('form-admin').reset();
-            
-            // Kembalikan lagi form tanggal ke hari ini setelah dikosongkan
-            let today = new Date();
-            let yyyy = today.getFullYear();
-            let mm = String(today.getMonth() + 1).padStart(2, '0');
-            let dd = String(today.getDate()).padStart(2, '0');
-            document.getElementById('inputTanggal').value = `${yyyy}-${mm}-${dd}`;
-
-            alert("Berhasil! Data telah tersimpan di Firebase.");
+            resetDateInput();
+            alert("Data berhasil disimpan!");
         } catch (e) {
-            console.error("Error: ", e);
-            alert("Gagal menyimpan data! Pastikan internet menyala.");
+            console.error("Error adding document: ", e);
         }
-    };
+    }
 
-    // FUNGSI MENGHAPUS / SELESAI
+    // FUNGSI HAPUS (DIKEMBALIKAN)
     window.hapusData = async function(id) {
-        if(confirm("Apakah buku ini sudah dikembalikan?")) {
+        if(confirm("Apakah buku ini sudah dikembalikan? Data akan dihapus dari daftar.")) {
             try {
                 await deleteDoc(doc(db, "peminjaman", id));
             } catch (e) {
-                console.error("Error: ", e);
+                console.error("Error deleting document: ", e);
             }
         }
-    };
+    }
 
-    // FUNGSI EDIT TANGGAL (BARU)
-    window.editTanggal = async function(id, tglLamaIso) {
-        // Ubah format ISO ke format kalender YYYY-MM-DD
-        let tglObj = new Date(tglLamaIso);
-        let yyyy = tglObj.getFullYear();
-        let mm = String(tglObj.getMonth() + 1).padStart(2, '0');
-        let dd = String(tglObj.getDate()).padStart(2, '0');
-        let formatLama = `${yyyy}-${mm}-${dd}`;
+    // FUNGSI EDIT DATA
+    window.editData = async function(id, namaLama, kelasLama, bukuLama) {
+        const namaBaru = prompt("Edit Nama Siswa:", namaLama);
+        const kelasBaru = prompt("Edit Kelas:", kelasLama);
+        const bukuBaru = prompt("Edit Judul Buku:", bukuLama);
 
-        let tglBaru = prompt("Ubah Tanggal Pinjam\nFormat harus: TAHUN-BULAN-TANGGAL (Contoh: 2026-04-09)", formatLama);
-        
-        if (tglBaru !== null && tglBaru !== "") {
-            let newDate = new Date(tglBaru);
-            // Cek apakah tanggal yang dimasukkan admin benar
-            if (!isNaN(newDate.getTime())) {
-                newDate.setHours(0,0,0,0);
-                try {
-                    await updateDoc(doc(db, "peminjaman", id), {
-                        tglPinjam: newDate.toISOString()
-                    });
-                    alert("Tanggal berhasil diperbarui!");
-                } catch (e) {
-                    console.error("Error: ", e);
-                    alert("Gagal mengubah tanggal. Pastikan internet menyala.");
-                }
-            } else {
-                alert("Format tanggal salah! Penulisan harus menggunakan tanda strip, misalnya 2026-04-09.");
+        if (namaBaru && kelasBaru && bukuBaru) {
+            try {
+                const docRef = doc(db, "peminjaman", id);
+                await updateDoc(docRef, {
+                    nama: namaBaru,
+                    kelas: kelasBaru,
+                    buku: bukuBaru
+                });
+            } catch (e) {
+                alert("Gagal memperbarui data.");
             }
         }
-    };
+    }
 
-    // FUNGSI MEMBACA DATA (REAL-TIME)
+    function resetDateInput() {
+        let today = new Date();
+        let yyyy = today.getFullYear();
+        let mm = String(today.getMonth() + 1).padStart(2, '0');
+        let dd = String(today.getDate()).padStart(2, '0');
+        document.getElementById('inputTanggal').value = `${yyyy}-${mm}-${dd}`;
+    }
+
+    // REAL-TIME LISTENER (Sinkronisasi Tabel Otomatis)
     onSnapshot(collection(db, "peminjaman"), (snapshot) => {
         const tbodyPublik = document.getElementById('tbody-publik');
         const tbodyAdmin = document.getElementById('tbody-admin');
-        const hariIni = new Date();
-        hariIni.setHours(0,0,0,0);
+        tbodyPublik.innerHTML = "";
+        tbodyAdmin.innerHTML = "";
 
-        tbodyPublik.innerHTML = '';
-        tbodyAdmin.innerHTML = '';
-
-        if(snapshot.empty) {
-            tbodyPublik.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">Hebat! Saat ini tidak ada buku yang sedang dipinjam (semua sudah kembali).</td></tr>';
-            tbodyAdmin.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">Daftar peminjaman kosong.</td></tr>';
-            return;
-        }
-
-        snapshot.forEach((docRef) => {
-            const data = docRef.data();
-            const id = docRef.id;
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            const id = doc.id;
             const tglPinjam = new Date(data.tglPinjam);
-            const tglTampil = tglPinjam.toLocaleDateString('id-ID');
+            
+            // Hitung Selisih Hari
+            const tglSekarang = new Date();
+            tglSekarang.setHours(0,0,0,0);
+            const selisihMilidetik = tglSekarang - tglPinjam;
+            const selisihHari = Math.floor(selisihMilidetik / (1000 * 60 * 60 * 24));
+            const sisaHari = MAX_HARI - selisihHari;
 
-            const selisihWaktu = hariIni.getTime() - tglPinjam.getTime();
-            const selisihHari = Math.floor(selisihWaktu / (1000 * 3600 * 24)); 
-            
-            let badgeHTML = "";
-            
-            if (selisihHari <= MAX_HARI) {
-                let sisaWaktu = MAX_HARI - selisihHari;
-                if (sisaWaktu === 0) {
-                    badgeHTML = `<span class="badge-sisa" style="background: #eab308;">Hari Terakhir</span>`;
-                } else {
-                    badgeHTML = `<span class="badge-sisa">Sisa ${sisaWaktu} Hari</span>`;
-                }
+            // Format Tanggal untuk Tampilan
+            const opsi = { day: '2-digit', month: 'short', year: 'numeric' };
+            const tglFormatted = tglPinjam.toLocaleDateString('id-ID', opsi);
+
+            // Status Badge
+            let statusBadge = "";
+            if (sisaHari < 0) {
+                statusBadge = `<span class="badge-terlambat">Terlambat ${Math.abs(sisaHari)} Hari</span>`;
             } else {
-                let telatHari = selisihHari - MAX_HARI;
-                badgeHTML = `<span class="badge-terlambat">⚠️&nbsp;Telat&nbsp;${telatHari}&nbsp;Hari</span>`;
+                statusBadge = `<span class="badge-sisa">Sisa ${sisaHari} Hari</span>`;
             }
 
+            // Isi Tabel Publik (Home)
             tbodyPublik.innerHTML += `
                 <tr>
-                    <td data-label="Nama Siswa"><strong>${data.nama}</strong></td>
-                    <td data-label="Kelas">${data.kelas}</td>
-                    <td data-label="Judul Buku">${data.buku}</td>
-                    <td data-label="Tgl Pinjam">${tglTampil}</td>
-                    <td data-label="Status Waktu">${badgeHTML}</td>
+                    <td>${data.nama}</td>
+                    <td>${data.kelas}</td>
+                    <td>${data.buku}</td>
+                    <td>${tglFormatted}</td>
+                    <td>${statusBadge}</td>
                 </tr>
             `;
 
-            // TAMBAHAN TOMBOL EDIT TGL DI TABEL ADMIN
+            // Isi Tabel Admin
             tbodyAdmin.innerHTML += `
                 <tr>
-                    <td data-label="Nama Siswa"><strong>${data.nama}</strong></td>
-                    <td data-label="Kelas">${data.kelas}</td>
-                    <td data-label="Buku">${data.buku}</td>
-                    <td data-label="Tgl Pinjam">${tglTampil}</td>
-                    <td data-label="Aksi Petugas" class="action-buttons">
-                        <button class="btn-edit" onclick="editTanggal('${id}', '${data.tglPinjam}')">✏️ Edit Tgl</button>
-                        <button class="btn-delete" onclick="hapusData('${id}')">✔ Dikembalikan</button>
+                    <td>${data.nama}</td>
+                    <td>${data.kelas}</td>
+                    <td>${data.buku}</td>
+                    <td>${tglFormatted}</td>
+                    <td class="action-buttons">
+                        <button class="btn-edit" onclick="editData('${id}', '${data.nama}', '${data.kelas}', '${data.buku}')">Edit</button>
+                        <button class="btn-delete" onclick="hapusData('${id}')">Dikembalikan</button>
                     </td>
                 </tr>
             `;
         });
     });
 </script>
-
 </body>
 </html>
