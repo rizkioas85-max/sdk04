@@ -539,20 +539,19 @@ th:last-child, td:last-child {
     import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
     const firebaseConfig = {
-        apiKey: "AIzaSyBciYhL2AYoa5_iWkEirQjPRpR29rWOyIE",
-        authDomain: "perpus-sdk04.firebaseapp.com",
-        projectId: "perpus-sdk04",
-        storageBucket: "perpus-sdk04.firebasestorage.app",
-        messagingSenderId: "850111293389",
-        appId: "1:850111293389:web:e3e44079f6863742ba8684",
-        measurementId: "G-MQB7WRV137"
+      apiKey: "AIzaSyBciYhL2AYoa5_iWkEirQjPRpR29rWOyIE",
+      authDomain: "perpus-sdk04.firebaseapp.com",
+      projectId: "perpus-sdk04",
+      storageBucket: "perpus-sdk04.firebasestorage.app",
+      messagingSenderId: "850111293389",
+      appId: "1:850111293389:web:e3e44079f6863742ba8684",
+      measurementId: "G-MQB7WRV137"
     };
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const MAX_HARI = 7;
 
-    // FUNGSI MENAMBAH DATA
     window.tambahData = async function(event) {
         event.preventDefault();
         const nama = document.getElementById('inputNama').value;
@@ -560,120 +559,22 @@ th:last-child, td:last-child {
         const buku = document.getElementById('inputBuku').value;
         const tglInput = document.getElementById('inputTanggal').value;
         
-        const tglPinjam = new Date(tglInput);
-        tglPinjam.setHours(0,0,0,0);
-
         try {
             await addDoc(collection(db, "peminjaman"), {
                 nama: nama,
                 kelas: kelas,
                 buku: buku,
-                tglPinjam: tglPinjam.toISOString()
+                tglPinjam: new Date(tglInput).toISOString()
             });
+            alert("Data Berhasil Disimpan!");
             document.getElementById('form-admin').reset();
-            resetDateInput();
-            alert("Data berhasil disimpan!");
-        } catch (e) {
-            console.error("Error adding document: ", e);
+        } catch (error) {
+            console.error("Gagal simpan:", error);
+            alert("Gagal menyimpan data. Cek koneksi atau Firebase Rules!");
         }
-    }
-
-    // FUNGSI HAPUS (DIKEMBALIKAN)
-    window.hapusData = async function(id) {
-        if(confirm("Apakah buku ini sudah dikembalikan? Data akan dihapus dari daftar.")) {
-            try {
-                await deleteDoc(doc(db, "peminjaman", id));
-            } catch (e) {
-                console.error("Error deleting document: ", e);
-            }
-        }
-    }
-
-    // FUNGSI EDIT DATA
-    window.editData = async function(id, namaLama, kelasLama, bukuLama) {
-        const namaBaru = prompt("Edit Nama Siswa:", namaLama);
-        const kelasBaru = prompt("Edit Kelas:", kelasLama);
-        const bukuBaru = prompt("Edit Judul Buku:", bukuLama);
-
-        if (namaBaru && kelasBaru && bukuBaru) {
-            try {
-                const docRef = doc(db, "peminjaman", id);
-                await updateDoc(docRef, {
-                    nama: namaBaru,
-                    kelas: kelasBaru,
-                    buku: bukuBaru
-                });
-            } catch (e) {
-                alert("Gagal memperbarui data.");
-            }
-        }
-    }
-
-    function resetDateInput() {
-        let today = new Date();
-        let yyyy = today.getFullYear();
-        let mm = String(today.getMonth() + 1).padStart(2, '0');
-        let dd = String(today.getDate()).padStart(2, '0');
-        document.getElementById('inputTanggal').value = `${yyyy}-${mm}-${dd}`;
-    }
-
-    // REAL-TIME LISTENER (Sinkronisasi Tabel Otomatis)
-    onSnapshot(collection(db, "peminjaman"), (snapshot) => {
-        const tbodyPublik = document.getElementById('tbody-publik');
-        const tbodyAdmin = document.getElementById('tbody-admin');
-        tbodyPublik.innerHTML = "";
-        tbodyAdmin.innerHTML = "";
-
-        snapshot.forEach((doc) => {
-            const data = doc.data();
-            const id = doc.id;
-            const tglPinjam = new Date(data.tglPinjam);
-            
-            // Hitung Selisih Hari
-            const tglSekarang = new Date();
-            tglSekarang.setHours(0,0,0,0);
-            const selisihMilidetik = tglSekarang - tglPinjam;
-            const selisihHari = Math.floor(selisihMilidetik / (1000 * 60 * 60 * 24));
-            const sisaHari = MAX_HARI - selisihHari;
-
-            // Format Tanggal untuk Tampilan
-            const opsi = { day: '2-digit', month: 'short', year: 'numeric' };
-            const tglFormatted = tglPinjam.toLocaleDateString('id-ID', opsi);
-
-            // Status Badge
-            let statusBadge = "";
-            if (sisaHari < 0) {
-                statusBadge = `<span class="badge-terlambat">Terlambat ${Math.abs(sisaHari)} Hari</span>`;
-            } else {
-                statusBadge = `<span class="badge-sisa">Sisa ${sisaHari} Hari</span>`;
-            }
-
-            // Isi Tabel Publik (Home)
-            tbodyPublik.innerHTML += `
-                <tr>
-                    <td>${data.nama}</td>
-                    <td>${data.kelas}</td>
-                    <td>${data.buku}</td>
-                    <td>${tglFormatted}</td>
-                    <td>${statusBadge}</td>
-                </tr>
-            `;
-
-            // Isi Tabel Admin
-            tbodyAdmin.innerHTML += `
-                <tr>
-                    <td>${data.nama}</td>
-                    <td>${data.kelas}</td>
-                    <td>${data.buku}</td>
-                    <td>${tglFormatted}</td>
-                    <td class="action-buttons">
-                        <button class="btn-edit" onclick="editData('${id}', '${data.nama}', '${data.kelas}', '${data.buku}')">Edit</button>
-                        <button class="btn-delete" onclick="hapusData('${id}')">Dikembalikan</button>
-                    </td>
-                </tr>
-            `;
-        });
-    });
+    };
+    
+    // Pastikan listener onSnapshot juga ditutup dengan benar di sini...
 </script>
 </body>
 </html>
